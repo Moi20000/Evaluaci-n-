@@ -1,0 +1,65 @@
+public class Triang {
+    public static void main(String[] args) {
+        // Declaración de variables
+        // Variables de entrada (coordenadas de los vértices)
+        double x1, y1; // Coordenadas del primer vértice
+        double x2, y2; // Coordenadas del segundo vértice
+        double x3, y3; // Coordenadas del tercer vértice
+        double perimetro;
+        double area;
+        double anguloA = 0;
+        double anguloB = 0;
+        double anguloC = 0;
+        double ladoA, ladoB, ladoC; // Longitudes de los lados del triángulo
+        String tipoDeTriangulo;
+
+        // Leer las coordenadas de los vértices
+        x1 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la coordenada x del primer vértice:"));
+        y1 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la coordenada y del primer vértice:"));
+        x2 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la coordenada x del segundo vértice:"));
+        y2 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la coordenada y del segundo vértice:"));
+        x3 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la coordenada x del tercer vértice:"));
+        y3 = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la coordenada y del tercer vértice:"));
+
+        // Calcular las longitudes de los lados
+        ladoA = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)); // Distancia entre el primer y segundo vértice
+        ladoB = Math.sqrt(Math.pow(x3 - x2, 2) + Math.pow(y3 - y2, 2)); // Distancia entre el segundo y tercer vértice
+        ladoC = Math.sqrt(Math.pow(x1 - x3, 2) + Math.pow(y1 - y3, 2)); // Distancia entre el tercer y primer vértice
+
+        // Calcularel perímetro
+        perimetro = ladoA + ladoB + ladoC;
+
+        // Determinar el tipo de triángulo
+        if (ladoA == ladoB && ladoB == ladoC) {
+            tipoDeTriangulo = "Equilátero";
+        } else if (ladoA == ladoB || ladoA == ladoC || ladoB == ladoC) {
+            tipoDeTriangulo = "Isósceles";
+        } else {
+            tipoDeTriangulo = "Escaleno";
+        }
+
+        // Calcular el área utilizando la fórmula de Herón
+        double semiperimetro = perimetro / 2;
+        area = Math.sqrt(semiperimetro * (semiperimetro - ladoA) * (semiperimetro - ladoB) * (semiperimetro - ladoC));
+
+        // Calcular los ángulos utilizando la ley de cosenos
+        double cosAnguloA = (ladoB * ladoB + ladoC * ladoC - ladoA * ladoA) / (2 * ladoB * ladoC);
+        double cosAnguloB = (ladoA * ladoA + ladoC * ladoC - ladoB * ladoB) / (2 * ladoA * ladoC);
+        double cosAnguloC = (ladoA * ladoA + ladoB * ladoB - ladoC * ladoC) / (2 * ladoA * ladoB);
+
+        anguloA = Math.toDegrees(Math.acos(cosAnguloA));
+        anguloB = Math.toDegrees(Math.acos(cosAnguloB));
+        anguloC = Math.toDegrees(Math.acos(cosAnguloC));
+
+        // Mostrar los resultados
+        JOptionPane.showMessageDialog(null,
+                "Tipo de triángulo: " + tipoDeTriangulo + "\n" +
+                        "Perímetro: " + perimetro + "\n" +
+                        "Área: " + area + "\n" +
+                        "Ángulo A: " + anguloA + "°\n" +
+                        "Ángulo B: " + anguloB + "°\n" +
+                        "Ángulo C: " + anguloC + "°");
+    }
+
+    
+}
